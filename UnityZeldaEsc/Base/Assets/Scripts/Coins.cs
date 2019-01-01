@@ -13,8 +13,22 @@ public class Coins : MonoBehaviour
         score = GetComponent<Text>();
 
     }
-     void Update()
+    void OnCollisionEnter2D(Collision2D collider)
     {
-        score.text = coinsVal.ToString();
+        if (collider.gameObject.tag.Equals("Player"))
+        {
+            coinsVal += 10;
+            Destroy(gameObject);
+
+        }
+
     }
+    void Update()
+    {
+        
+        score.text = coinsVal.ToString();
+
+    }
+    
+    
 }

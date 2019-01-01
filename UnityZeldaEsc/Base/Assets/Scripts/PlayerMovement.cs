@@ -8,11 +8,15 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 change;
     private Animator animator;
 
+    //references
+    
+
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
-		
+        
+        
 	}
 	
 	// Update is called once per frame
@@ -45,5 +49,18 @@ public class PlayerMovement : MonoBehaviour {
     void MoveCharacter()
     {
         myRigidbody.MovePosition(transform.position + change * speed * Time.deltaTime);
+    }
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Coin"))
+        {
+            other.Get
+
+            
+   
+            
+
+
+        }
     }
 }
