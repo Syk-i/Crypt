@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMovement : MonoBehaviour {
+    public enum PlayerState
+    {
+        walk,
+        attack,
+        interact
+    }
+    public PlayerState currentState;
     public float speed;
     private Rigidbody2D myRigidbody;
     private Vector3 change;
     private Animator animator;
 
     //references
-    
 
 	// Use this for initialization
 	void Start () {
         animator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
-        
+        currentState = PlayerState.walk;
         
 	}
 	
@@ -25,11 +32,32 @@ public class PlayerMovement : MonoBehaviour {
 
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
-        UpdateAnimationAndMove();
+        if (Input.GetButtonDown("attack")&& currentState != PlayerState.attack)
+        {
+            StartCoroutine(AttackCo());
+
+        }
+        else if(currentState == PlayerState.walk)
+        {
+            UpdateAnimationAndMove();
+
+        }
+
+        
        
 
         
 	}
+    private IEnumerator AttackCo()
+    {
+        animator.SetBool("attacking", true);
+        currentState = PlayerState.attack;
+        yield return null;
+        animator.SetBool("attacking", false);
+        yield return new WaitForSeconds(.33f);
+        currentState = PlayerState.walk;
+
+    }
     void UpdateAnimationAndMove()
     {
         if (change != Vector3.zero)
@@ -54,7 +82,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (col.CompareTag("Coin"))
         {
-            other.Get
+            col.GetComponent<Coins>().CoinUpdate();
 
             
    

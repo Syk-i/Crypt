@@ -5,30 +5,14 @@ using UnityEngine.UI;
 
 public class Coins : MonoBehaviour
 {
-    public int coinsVal = 0;
-    Text score;
+    public int coinAmount;
 
-    private void Start()
+
+
+    public void CoinUpdate()
     {
-        score = GetComponent<Text>();
-
+        coinAmount += 1;
     }
-    void OnCollisionEnter2D(Collision2D collider)
-    {
-        if (collider.gameObject.tag.Equals("Player"))
-        {
-            coinsVal += 10;
-            Destroy(gameObject);
 
-        }
 
-    }
-    void Update()
-    {
-        
-        score.text = coinsVal.ToString();
-
-    }
-    
-    
 }
